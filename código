@@ -1,0 +1,47 @@
+CREATE TABLE aluno 
+( 
+ cod_aluno INT PRIMARY KEY AUTO_INCREMENT,  
+ senha VARCHAR(25) NOT NULL,  
+ nome VARCHAR(20) NOT NULL,  
+ cpf VARCHAR(14) NOT NULL  
+); 
+
+CREATE TABLE moderador 
+( 
+ cod_administrador INT PRIMARY KEY AUTO_INCREMENT,  
+ cpf VARCHAR(14) NOT NULL,  
+ nome VARCHAR(25) NOT NULL,  
+ senha VARCHAR(20) NOT NULL,  
+ UNIQUE (cpf)
+); 
+
+CREATE TABLE professor 
+( 
+ nome VARCHAR(20) NOT NULL,  
+ cpf VARCHAR(14) NOT NULL,  
+ senha VARCHAR(25) NOT NULL,  
+ cod_professor INT PRIMARY KEY AUTO_INCREMENT,  
+ UNIQUE (cpf)
+); 
+
+CREATE TABLE atividade 
+( 
+ anexo BLOB,  
+ cod_atividade INT PRIMARY KEY,  
+ data_de_entrega DATE NOT NULL,  
+ nome VARCHAR(20) NOT NULL,  
+ cod_professor INT
+); 
+
+CREATE TABLE aluno_atividade 
+( 
+ data_de_entrega DATE NOT NULL,  
+ anexo BLOB(25),  
+ nome VARCHAR(20) NOT NULL,  
+ cod_aluno INT NOT NULL,  
+ cod_atividade INT NOT NULL
+); 
+
+ALTER TABLE atividade ADD FOREIGN KEY(cod_professor) REFERENCES professor (cod_professor)
+ALTER TABLE aluno_atividade ADD FOREIGN KEY(cod_aluno) REFERENCES aluno (cod_aluno)
+ALTER TABLE aluno_atividade ADD FOREIGN KEY(cod_atividade) REFERENCES atividade (cod_atividade)
